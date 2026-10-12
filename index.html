@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AURORA TCA V48</title>
+<script src="aurora-core.js"></script>
+<style>
+body{margin:0;font-family:system-ui;background:#0a0a14;color:#fff}
+header{padding:16px;text-align:center;background:linear-gradient(90deg,#ff0080,#7928ca);font-weight:bold}
+.chat{max-width:900px;margin:0 auto;padding:20px;height:70vh;overflow-y:auto}
+.msg{margin:12px 0;padding:14px;border-radius:12px;max-width:85%;line-height:1.5}
+.user{background:#ff0080;margin-left:auto}
+.ai{background:#1e1e36;border:1px solid #333}
+.bar{max-width:900px;margin:0 auto;display:flex;gap:8px;padding:12px;background:#151525;position:sticky;bottom:0}
+input{flex:1;padding:14px;border-radius:10px;border:none;background:#22223a;color:#fff}
+button{padding:14px 18px;border:none;border-radius:10px;background:#ff0080;color:#fff;font-weight:bold;cursor:pointer}
+</style>
+</head>
+<body>
+<header>AURORA TCA V48 - CÉREBRO ELEVADO</header>
+<div class="chat" id="chat"><div class="msg ai">Cérebro ligado! Sou a V48. A mesma inteligência que me alimenta pode alimentar o site, a app e o suporte. Escreve algo para testar.</div></div>
+<div class="bar"><input id="inp" placeholder="Escreva aqui..."><button onclick="enviar()">Enviar</button></div>
+<script>
+const chat=document.getElementById('chat'); const inp=document.getElementById('inp');
+async function enviar(){
+ const t=inp.value.trim(); if(!t) return;
+ chat.innerHTML+=`<div class="msg user">${t}</div>`; inp.value='';
+ try{ const r=await AURORA_CORE.perguntar(t); chat.innerHTML+=`<div class="msg ai">${r}</div>`; }
+ catch(e){ chat.innerHTML+=`<div class="msg ai">Erro: ${e.message}</div>`; }
+ chat.scrollTop=chat.scrollHeight;
+}
+inp.addEventListener('keydown',e=>{if(e.key==='Enter') enviar()});
+</script>
+</body>
+</html>
